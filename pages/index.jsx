@@ -1,7 +1,23 @@
 import { useRef, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
+import dynamic from 'next/dynamic';
+
+const CEditor = dynamic(() => import('../components/Editor'), {
+  ssr: false,
+});
 
 export default function Home() {
+
+  // return (
+  //   <>
+  //     <CEditor />
+  //   </>
+  // )
+
+
+
+
+
 
   const [caretPos, setCaretPos] = useState(0);
 
@@ -16,12 +32,15 @@ export default function Home() {
   const handleCursor = (tiny) => {
 
     const contenido = tiny.getContent();
-    // console.log(contenido)
-    const selection = tiny.selection.getRng();
 
-    console.log(selection)
-    console.log(selection.startOffset)
-    console.log(selection.endOffset)
+    console.log(tiny.selection.getNode())
+
+    // console.log(contenido)
+    // const selection = tiny.selection.getRng();
+
+    // console.log(selection)
+    // console.log(selection.startOffset)
+    // console.log(selection.endOffset)
     // console.log(tiny.execCommand('mceEndTyping'));
   }
 
