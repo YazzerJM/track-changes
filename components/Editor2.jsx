@@ -90,7 +90,7 @@ const Editor2 = () => {
           editor.editing.view.change((writer) => {
             writer.setStyle(
               "height",
-              "800px",
+              "600px",
               editor.editing.view.document.getRoot()
             );
           });
