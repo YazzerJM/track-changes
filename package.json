@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^35.2.0",
+    "@ckeditor/ckeditor5-collaboration-core": "^35.2.0",
+    "@ckeditor/ckeditor5-editor-decoupled": "^35.2.0",
+    "@ckeditor/ckeditor5-track-changes": "^35.2.0",
     "@tinymce/tinymce-react": "^4.2.0",
     "ckeditor5": "^35.2.0",
     "fs-extra": "^10.1.0",
