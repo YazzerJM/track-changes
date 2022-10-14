@@ -32,6 +32,7 @@ import MediaEmbed from '@ckeditor/ckeditor5-media-embed/src/mediaembed.js';
 import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph.js';
 import PasteFromOffice from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice.js';
 import PictureEditing from '@ckeditor/ckeditor5-image/src/pictureediting.js';
+import RevisionHistory from '@ckeditor/ckeditor5-revision-history/src/revisionhistory.js';
 import Strikethrough from '@ckeditor/ckeditor5-basic-styles/src/strikethrough.js';
 import Table from '@ckeditor/ckeditor5-table/src/table.js';
 import TableCellProperties from '@ckeditor/ckeditor5-table/src/tablecellproperties';
@@ -41,6 +42,31 @@ import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformatio
 import TodoList from '@ckeditor/ckeditor5-list/src/todolist';
 import TrackChanges from '@ckeditor/ckeditor5-track-changes/src/trackchanges.js';
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline.js';
+
+class RevisionHistoryAdapter {
+	static get requires() {
+		return [ 'RevisionHistory' ];
+	}
+
+	constructor( editor ) {
+		this.editor = editor;
+	}
+
+	init() {
+		const editor = this.editor;
+		const revisionHistory = editor.plugins.get( 'RevisionHistory' );
+		const revisions = [];
+
+		revisionHistory.adapter = {
+			getRevision: async ( { revisionId } ) => {
+				return revisions.find( data => data.id == revisionId );
+			},
+			updateRevisions: async revisionsData => {
+				revisions.splice( 0, revisions.length, ...revisionsData );
+			}
+		};
+	}
+}
 
 class Editor extends DecoupledDocumentEditor {}
 
@@ -75,6 +101,7 @@ Editor.builtinPlugins = [
 	Paragraph,
 	PasteFromOffice,
 	PictureEditing,
+	RevisionHistory,
 	Strikethrough,
 	Table,
 	TableCellProperties,
@@ -83,7 +110,8 @@ Editor.builtinPlugins = [
 	TextTransformation,
 	TodoList,
 	TrackChanges,
-	Underline
+	Underline,
+	RevisionHistoryAdapter
 ];
 
 // Editor configuration.
@@ -120,9 +148,13 @@ Editor.defaultConfig = {
 			'|',
 			'undo',
 			'redo',
+			'-',
+			'revisionHistory',
+			'|',
 			'comment',
 			'trackChanges'
-		]
+		],
+		shouldNotGroupWhenFull: true
 	},
 	language: 'es',
 	image: {

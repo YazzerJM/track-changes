@@ -1,4 +1,5 @@
 import '../styles/globals.css'
+import '../styles/CKEditor.css'
 // import '@ckeditor/ckeditor5-collaboration-core/theme/integrations/codeblock.css';
 
 function MyApp({ Component, pageProps }) {

@@ -27,6 +27,7 @@
     "@ckeditor/ckeditor5-media-embed": "^35.2.0",
     "@ckeditor/ckeditor5-paragraph": "^35.2.0",
     "@ckeditor/ckeditor5-paste-from-office": "^35.2.0",
+    "@ckeditor/ckeditor5-revision-history": "^35.2.0",
     "@ckeditor/ckeditor5-table": "^35.2.0",
     "@ckeditor/ckeditor5-theme-lark": "^35.2.0",
     "@ckeditor/ckeditor5-track-changes": "^35.2.0",

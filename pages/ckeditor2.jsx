@@ -12,8 +12,6 @@ export default function CKEditorPage2() {
 
     return (
 
-        <div className="p-6 m-10 bg-white rounded-lg border border-gray-200 shadow-md">
-            <Editor2 />
-        </div>
+        <Editor2 />
     )
 }

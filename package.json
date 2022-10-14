@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^35.2.0",
+    "@ckeditor/ckeditor5-build-decoupled-document": "^35.2.1",
     "@ckeditor/ckeditor5-collaboration-core": "^35.2.0",
     "@ckeditor/ckeditor5-editor-decoupled": "^35.2.0",
     "@ckeditor/ckeditor5-track-changes": "^35.2.0",

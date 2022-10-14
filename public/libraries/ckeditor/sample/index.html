@@ -14,7 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
-<body data-editor="DecoupledDocumentEditor" data-collaboration="false" data-revision-history="false">
+<body data-editor="DecoupledDocumentEditor" data-collaboration="false" data-revision-history="true">
 	<header>
 		<div class="centered">
 			<h1><a href="https://ckeditor.com/ckeditor-5/" target="_blank" rel="noopener noreferrer"><img
@@ -113,6 +113,12 @@
 					</div>
 					<div class="sidebar"></div>
 				</div>
+				<div class="revision-viewer-container">
+					<div class="editor-container">
+						<div class="revision-viewer-editor"></div>
+						<div class="revision-viewer-sidebar"></div>
+					</div>
+				</div>
 			</div>
 		</div>
 		</div>
@@ -154,11 +160,46 @@
 					}
 
 				],
-				licenseKey: 'heaPPwoEPI7CuyZ5ZmcQwO5yKmPuqxLELh26WBJdF8yt4YyOpMQkFd48Xg==',
+				licenseKey: '',
 				sidebar: {
 					container: document.querySelector('.sidebar')
 				},
 
+				revisionHistory: {
+					showRevisionViewerCallback: config => {
+						const editorContainer = document.querySelector('.editor-container');
+						const viewerContainer = document.querySelector('.revision-viewer-container');
+						const viewerElement = document.querySelector('.revision-viewer-editor');
+
+						config.revisionHistory.viewerSidebarContainer = document.querySelector('.revision-viewer-sidebar');
+
+						return DecoupledDocumentEditor.create(viewerElement, config).then(viewerEditor => {
+							viewerContainer.style.display = 'flex';
+							editorContainer.style.display = 'none';
+
+							const toolbarContainer = document.querySelector('.document-editor__toolbar');
+
+							toolbarContainer.innerHTML = '';
+							toolbarContainer.appendChild(viewerEditor.ui.view.toolbar.element);
+
+							return viewerEditor;
+						});
+					},
+					closeRevisionViewerCallback: viewerEditor => {
+						const editorContainer = document.querySelector('.editor-container');
+						const viewerContainer = document.querySelector('.revision-viewer-container');
+
+						viewerContainer.style.display = 'none';
+						editorContainer.style.display = '';
+
+						return viewerEditor.destroy().then(() => {
+							const toolbarContainer = document.querySelector('.document-editor__toolbar');
+
+							toolbarContainer.innerHTML = '';
+							toolbarContainer.appendChild(window.editor.ui.view.toolbar.element);
+						});
+					}
+				}
 
 			})
 			.then(editor => {
@@ -171,7 +212,7 @@
 			.catch(error => {
 				console.error('Oops, something went wrong!');
 				console.error('Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:');
-				console.warn('Build id: atg9w2cb6tow-cycierilkwq2');
+				console.warn('Build id: wv4tboi3u7al-5k0dvjmcpck');
 				console.error(error);
 			});
 	</script>
