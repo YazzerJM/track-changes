@@ -74,14 +74,26 @@ const Editor2 = () => {
 
           const users = this.editor.plugins.get('Users');
 
-          users.addUser({
-            id: 'u1',
-            initials: 'YJM',
-            isAnonymous: false,
-            name: 'Yasser Jiménez Martínez'
-          });
+          users.addUser(
+            {
+              id: 'u1',
+              initials: 'YJM',
+              isAnonymous: false,
+              name: 'Yasser Jiménez Martínez'
+            }
+          );
+          users.addUser(
+            {
+              id: 'u2',
+              initials: 'MR',
+              isAnonymous: false,
+              name: 'Messi Ronaldo'
+            }
+          );
 
-          users.defineMe('u1');
+
+          users.defineMe('u2');
+          
 
           const suggestions = this.editor.plugins.get('TrackChanges');
 

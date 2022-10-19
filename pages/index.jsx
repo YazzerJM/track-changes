@@ -1,10 +1,28 @@
 import { useRef, useState } from 'react';
-import { Editor } from '@tinymce/tinymce-react';
-import dynamic from 'next/dynamic';
+import tinymce from 'tinymce/tinymce';
+if (typeof window !== 'undefined'){
+  // require ('tinymce/tinymce');
+  // require ('tinymce/themes/silver');
+  // require ('tinymce/plugins/advlist');
+  // require ('tinymce/plugins/autolink');
+  // etc.
+}
 
-const CEditor = dynamic(() => import('../components/Editor'), {
-  ssr: false,
-});
+import { Editor } from '@tinymce/tinymce-react';
+// dynamic(() => import('tinymce/tinymce'), {
+//   ssr: false,
+// });
+
+// import 'tinymce/plugins/insertdatetime';
+
+// import '../public/plugin/trackchanges';
+
+// import '../public/plugin/trackchanges'
+
+// dynamic(() => import('../public/plugin/trackchanges'), {
+//   ssr: false,
+// });
+
 
 export default function Home() {
 
@@ -75,6 +93,7 @@ export default function Home() {
             </div>
           </form> */}
           <Editor
+            apiKey='1b94w1a74r62ozu9d2zskma8519yo0pkb1x8g4zbzonzdlpl'
             onMouseUp={(evt, editor) => handleCursor(editorRef.current)}
             onInit={(evt, editor) => editorRef.current = editor}
             id='asd'
@@ -86,16 +105,22 @@ export default function Home() {
               menubar: true,
               skin: "oxide-dark",
               // content_css: "dark",
+              menu: {
+                advanced: { title: "Advanced", items: "trackchanges" },
+                view: { title: "View", items: "code" }, // I add this to show the codes.
+              },
               plugins: [
                 'advlist autolink lists link image charmap print preview anchor',
                 'searchreplace visualblocks code fullscreen',
-                'insertdatetime media table paste code help wordcount'
+                'insertdatetime media table paste code help wordcount',
+                // 'code trackchanges'
               ],
               toolbar: 'undo redo | formatselect | ' +
                 'bold italic backcolor | alignleft aligncenter ' +
                 'alignright alignjustify | bullist numlist outdent indent | ' +
                 'removeformat | help' +
-                'table tabledelete | tableprops tablerowprops tablecellprops | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol',
+                'table tabledelete | tableprops tablerowprops tablecellprops | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol' +
+                'inserttext deletetext showchanges hidechanges',
               content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
             }}
           />
